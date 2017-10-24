@@ -3,7 +3,8 @@
     "description": "Nailed-It 3.0 website",
     "type": "website",
     "require": {
-        "php": "^7.0"
+        "php": "^7.0",
+        "heroku/heroku-buildpack-php": "^125.0"
     },
     "license": "MIT",
     "authors": [
