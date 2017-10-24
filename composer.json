@@ -1,0 +1,16 @@
+{
+    "name": "root/nailed-it_3.0",
+    "description": "Nailed-It 3.0 website",
+    "type": "website",
+    "require": {
+        "php": "^7.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Joseph-Ladino",
+            "email": "drtnt25@gmail.com"
+        }
+    ],
+    "minimum-stability": "beta"
+}
