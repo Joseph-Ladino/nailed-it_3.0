@@ -4,9 +4,9 @@
     header('Location: ./account.php');
   }
   if($_SERVER["REQUEST_METHOD"] == "POST") {
-    $e = $_POST['email'];
-    $p = $_POST['password'];
-    include('./connect.php');
+    include('connect.php');
+    $e = mysqli_real_escape_string($dbc, trim($_POST['email'))];
+    $p = mysqli_real_escape_string($dbc, trim($_POST['password']));
     $q = mysqli_query($dbc, "SELECT * FROM users WHERE email='".$e."'");
     $account_row = mysqli_num_rows($q);
     if($account_row != 0) {
@@ -30,7 +30,7 @@
 
 <!DOCTYPE html>
 <html>
-  <?php $title = "Login to your Account."; include('./header.php'); echo $head; ?>
+  <?php $title = "Login to your Account."; include('./header.php'); ?>
   <body>
     <center>
       <form name="Login" method="post" action="./login.php">

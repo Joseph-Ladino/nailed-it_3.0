@@ -17,7 +17,9 @@
 
   function retrieveC($name) {
     if(isset($_COOKIE[$name])) {
-      return $_COOKIE[$name];
+      include("connect.php");
+      return mysqli_real_escape_string($dbc, trim($_COOKIE[$name]));
+      mysqli_close($dbc);
     } else {
       return '';
     }

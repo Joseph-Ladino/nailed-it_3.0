@@ -2,7 +2,7 @@
   $title = "Manage Your Account";
   if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     if(isset($_GET['logout'])) {
-      $logout = $_GET['logout'];
+      $logout = mysql_real_escape_string(trim($_GET['logout']));
       if($logout == 1) {
         $title = "Logout";
         include('./cookie.php');
@@ -11,9 +11,11 @@
       }
     } elseif(isset($_POST['oldEmail'])) {
       if(isset($_POST['oldEmail']) && isset($_POST['newEmail']) && isset($_POST['changeEmail'])) {
-        $oldEmail = $_POST['oldEmail'];
-        $newEmail = $_POST['newEmail'];
-        $confirmEmail = $_POST['confirmEmail'];
+        include('connect.php');
+        $oldEmail = mysql_real_escape_string($dbc, trim($_POST['oldEmail']));
+        $newEmail = mysql_real_escape_string($dbc, trim($_POST['newEmail']));
+        $confirmEmail = mysql_real_escape_string($dbc, trim($_POST['confirmEmail']));
+        mysqli_close($dbc);
         echo $oldEmail.' '.$newEmail.' '.$confirmEmail;
       }
     }
@@ -22,7 +24,7 @@
 
 <!DOCTYPE html>
 <html>
-  <?php include('./header.php'); echo $head; ?>
+  <?php $title = "Manage your Account" include('./header.php'); ?>
   <body>
     <label for="changeEmail">Change email address</label><br />
     <form name="changeEmail" method="post" action="./account.php">

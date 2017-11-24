@@ -26,6 +26,20 @@
     $link = "login.php";
     $logout = False;
   }
+  if($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if(isset($_POST['suggestor']) && isset($_POST['suggestions'])) {
+      include('./php/connect.php');
+      $suggestor = mysqli_real_escape_string($dbc, trim($_POST['suggestor']));
+      $suggests = mysqli_real_escape_string($dbc, trim($_POST['suggestions']));
+      if(mysqli_num_rows(mysqli_query($dbc, "SHOW TABLES LIKE 'suggestions'")) == 1) {
+        mysqli_query($dbc, "INSERT INTO suggestions(person, suggestion) VALUES('$suggestor', '$suggests')");
+      } else {
+        mysqli_query($dbc, "CREATE TABLE `suggestions` (`person` VARCHAR(50) NOT NULL, `suggestion` LONGTEXT NOT NULL)");
+        mysqli_query($dbc, "INSERT INTO suggestions(person, suggestion) VALUES('$suggestor', '$suggests')");
+      }
+      mysqli_close($dbc);
+    }
+  }
 ?>
 
 <!DOCTYPE html>
@@ -38,7 +52,7 @@
     <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript">
-    var links = ['./', './php/<?php echo $link; ?>', './php/changelog.php'];
+    var links = ['./', './php/<?php echo $link; ?>', 'https://github.com/Joseph-Ladino/nailed-it_3.0/commit/master'];
     </script>
     <script type="text/javascript" src="./js/main.js" id="nav-closed"></script>
   </head>
@@ -62,9 +76,16 @@
     </div>
     <img src="./images/arrow.png" id="nav-closed" class="nav-btn" />
     <br />
-    <h1 id="main-header" class="center">
+    <h1 class="main-header center">
       <?php echo $head1; ?> <span style="color: red;">Nailed</span><span style="color: lime;" style="display: inline;">-</span><span style="color: white;" style="display: inline;">It</span><?php if($head2 !== "") { echo ', ';} ?><span style="color: Lime;" style="display: inline;"><?php echo $head2; ?></span>!
     </h1>
-    <h3 id="main-subheader" class="center">Don't forget to look around for easter eggs!</h3>
+    <h3 class="main-subheader center">Don't forget to look around for easter eggs!</h3>
+    <br />
+    <h3 class="center">Feel free to leave a suggestion!!!</h2><br />
+    <form name="suggestion-box;" method="post" action="./index.php" class="center">
+      <input type="text" name="suggestor" placeholder="Enter Name..." maxlength="50" /><br /><br />
+      <textarea name="suggestions" rows="10" cols="30" placeholder="Enter suggestions here..."></textarea><br />
+      <input type="submit" name="Submit" value="Submit suggestion." />
+    </form>
   </body>
 </html>

@@ -4,12 +4,12 @@ include('./cookie.php');
     header('Location: ./account.php');
   }
   if($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = $_POST['username'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $gender = $_POST['gender'];
-    $remember = $_POST['remember'];
-    include('./connect.php');
+    include('connect.php')
+    $username = mysqli_real_escape_string($dbc, trim($_POST['username']));
+    $email = mysqli_real_escape_string($dbc, trim($_POST['email']));
+    $password = mysqli_real_escape_string($dbc, trim($_POST['password']));
+    $gender = mysqli_real_escape_string($dbc, trim($_POST['gender']));
+    $remember = mysqli_real_escape_string($dbc, trim($_POST['remember']));
     $q = mysqli_query($dbc, "SELECT * FROM users WHERE email='".$email."'");
     if(mysqli_num_rows($q) <= 0) {
       $q = mysqli_query($dbc, "SELECT * FROM users WHERE username='".$username."'");
@@ -47,7 +47,7 @@ include('./cookie.php');
 
 <!DOCTYPE html>
 <html>
-  <?php $title = "Sign Up"; include('./header.php'); echo $head; ?>
+  <?php $title = "Sign Up"; include('./header.php'); ?>
   <body>
     <center>
       <form name="signup" action="./signup.php" method="post">
