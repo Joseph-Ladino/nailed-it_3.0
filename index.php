@@ -66,18 +66,8 @@
     <img src="./images/arrow.png" id="nav-closed" class="nav-btn" />
     <br />
     <h1 class="main-header center">
-      <?php if(!empty(retrieveC('user'))) { echo "Welcome back to "; } else { echo "Welcome to "; } ?> <span style="color: red;">Nailed</span><span style="color: lime;" style="display: inline;">-</span><span style="color: white;" style="display: inline;">It</span><?php if(!empty(retrieveC('user'))) { echo ', ';} ?><span style="color: Lime;" style="display: inline;"><?php if(!empty(retrieveC('user'))) {
-        $user = retrieveC('user');
-        include('./php/connect.php');
-        $query = mysqli_query($dbc, "SELECT username FROM users WHERE id='".$user."'");
-        if (!empty($query)) {
-          while($row = mysqli_fetch_array($query)) {
-            $name = $row['username'];
-          }
-          echo $name;
-        }
-        mysqli_close($dbc);
-      } ?></span>!
+      <?php if(!empty(retrieveC('user'))) { echo "Welcome back to "; } else { echo "Welcome to "; } ?> <span style="color: red;">Nailed</span><span style="color: lime;" style="display: inline;">-</span><span style="color: white;" style="display: inline;">It!</span>
+       </span>!
     </h1>
     <h3 class="main-subheader center">Don't forget to look around for easter eggs!</h3>
     <br />
