@@ -72,8 +72,7 @@
         $query = mysqli_query($dbc, "SELECT username FROM users WHERE id='".$user."'");
         if (!empty($query)) {
           while($row = mysqli_fetch_array($query)) {
-            $name = $row['username'];
-            echo $name;
+            echo $row['username'];
         }
         mysqli_close($dbc);
       }} ?></span>!
