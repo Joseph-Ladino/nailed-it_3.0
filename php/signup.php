@@ -4,7 +4,7 @@ include('./cookie.php');
     header('Location: ./account.php');
   }
   if($_SERVER['REQUEST_METHOD'] == 'POST') {
-    include('connect.php')
+    include('connect.php');
     $username = mysqli_real_escape_string($dbc, trim($_POST['username']));
     $email = mysqli_real_escape_string($dbc, trim($_POST['email']));
     $password = mysqli_real_escape_string($dbc, trim($_POST['password']));
