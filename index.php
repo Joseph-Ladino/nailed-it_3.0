@@ -64,7 +64,7 @@
   </head>
   <body>
     <script type="text/javascript">
-    <?php if($GLOBALS['logout'] == 1) {
+    <?php if(!empty(retrieveC('user'))) {
       echo "$('#nav-log').click(function() {
         window.open('./php/account.php?logout=1', '_self');
       });";
@@ -75,7 +75,7 @@
         <li id="nav-home">Home</li>
         <li id="nav-manage"><?php echo $txt; ?></li>
         <li id="nav-changes">Changelog</li>
-        <?php if($GLOBALS['logout'] == 1) {
+        <?php if(!empty(retrieveC('user'))) {
           echo "<li id='nav-logout'>Logout</li>";
         } ?>
       </ul>
