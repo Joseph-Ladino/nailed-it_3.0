@@ -70,7 +70,7 @@
       echo "<script type='text/javascript'>$('#nav-log').click(function() {
         window.open('./php/account.php?logout=1', '_self');
       });</script>";
-    } ?>
+    } echo "testtss" ?>
     <div id="nav-bar">
       <ul>
         <li id="nav-home">Home</li>
