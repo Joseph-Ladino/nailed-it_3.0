@@ -1,5 +1,4 @@
 <?php
-  echo "this works";
   $head1 = '';
   $head2 = '';
   $txt = '';
@@ -66,13 +65,12 @@
   </head>
   <body>
     <?php echo "this works toooo"; ?>
-    <script type="text/javascript">
+    
     <?php if($logout == 1) {
-      echo "$('#nav-log').click(function() {
+      echo "<script type='text/javascript'>$('#nav-log').click(function() {
         window.open('./php/account.php?logout=1', '_self');
-      });";
+      });</script>";
     } ?>
-    </script>
     <div id="nav-bar">
       <ul>
         <li id="nav-home">Home</li>
