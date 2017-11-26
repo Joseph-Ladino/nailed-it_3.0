@@ -66,7 +66,7 @@
   <body>
     <?php echo "this works toooo"; ?>
     
-    <?php if($logout == 1) {
+    <?php $logout = 1; if($logout == 1) {
       echo "<script type='text/javascript'>$('#nav-log').click(function() {
         window.open('./php/account.php?logout=1', '_self');
       });</script>";
