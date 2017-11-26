@@ -51,7 +51,6 @@
   }
 ?>
 
-<!DOCTYPE html>
 <html>
   <head>
     <title>New and Improved Nailed-It!</title>
@@ -66,6 +65,7 @@
     <script type="text/javascript" src="./js/main.js" id="nav-closed"></script>
   </head>
   <body>
+    <?php echo "this works toooo"; ?>
     <script type="text/javascript">
     <?php if($logout == 1) {
       echo "$('#nav-log').click(function() {
