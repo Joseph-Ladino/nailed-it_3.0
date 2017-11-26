@@ -16,14 +16,14 @@
       $head2 = $name;
       $txt = "Manage Account";
       $link = "account.php";
-      $_GLOBALS['logout'] = 1;
+      $GLOBALS['logout'] = 1;
     }
   } else {
     $head1 = "Welcome to";
     $head2 = "";
     $txt = "Login";
     $link = "login.php";
-    $_GLOBALS['logout'] = False;
+    $GLOBALS['logout'] = False;
   }
   if($_SERVER['REQUEST_METHOD'] == 'POST') {
     if(isset($_POST['suggestor']) && isset($_POST['suggestions'])) {
@@ -64,7 +64,7 @@
   </head>
   <body>
     <script type="text/javascript">
-    <?php if($_GLOBALS['logout'] == 1) {
+    <?php if($GLOBALS['logout'] == 1) {
       echo "$('#nav-log').click(function() {
         window.open('./php/account.php?logout=1', '_self');
       });";
@@ -75,7 +75,7 @@
         <li id="nav-home">Home</li>
         <li id="nav-manage"><?php echo $txt; ?></li>
         <li id="nav-changes">Changelog</li>
-        <?php if($_GLOBALS['logout'] == 1) {
+        <?php if($GLOBALS['logout'] == 1) {
           echo "<li id='nav-logout'>Logout</li>";
         } ?>
       </ul>
