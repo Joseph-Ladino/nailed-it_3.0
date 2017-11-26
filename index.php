@@ -4,27 +4,6 @@
   $txt = '';
   $link = '';
   include('./php/cookie.php');
-  if(!empty(retrieveC('user'))) {
-    $user = retrieveC('user');
-    include('./php/connect.php');
-    $query = mysqli_query($dbc, "SELECT username FROM users WHERE id='".$user."'");
-    if (!empty($query)) {
-      while($row = mysqli_fetch_array($query)) {
-        $name = $row['username'];
-      }
-      $head1 = "Welcome back to";
-      $head2 = $name;
-      $txt = "Manage Account";
-      $link = "account.php";
-      $GLOBALS['logout'] = 1;
-    }
-  } else {
-    $head1 = "Welcome to";
-    $head2 = "";
-    $txt = "Login";
-    $link = "login.php";
-    $GLOBALS['logout'] = False;
-  }
   if($_SERVER['REQUEST_METHOD'] == 'POST') {
     if(isset($_POST['suggestor']) && isset($_POST['suggestions'])) {
       include('./php/connect.php');
@@ -73,7 +52,11 @@
     <div id="nav-bar">
       <ul>
         <li id="nav-home">Home</li>
-        <li id="nav-manage"><?php echo $txt; ?></li>
+        <li id="nav-manage"><?php if(!empty(retrieveC('user'))) {
+          echo "Manage Account";
+        } else {
+          echo "Login";
+        } ?></li>
         <li id="nav-changes">Changelog</li>
         <?php if(!empty(retrieveC('user'))) {
           echo "<li id='nav-logout'>Logout</li>";
@@ -83,7 +66,17 @@
     <img src="./images/arrow.png" id="nav-closed" class="nav-btn" />
     <br />
     <h1 class="main-header center">
-      <?php echo $head1; ?> <span style="color: red;">Nailed</span><span style="color: lime;" style="display: inline;">-</span><span style="color: white;" style="display: inline;">It</span><?php if($head2 !== "") { echo ', ';} ?><span style="color: Lime;" style="display: inline;"><?php echo $head2; ?></span>!
+      <?php if(!empty(retrieveC('user'))) { echo "Welcome back to "; } else { echo "Welcome to "; } ?> <span style="color: red;">Nailed</span><span style="color: lime;" style="display: inline;">-</span><span style="color: white;" style="display: inline;">It</span><?php if(!empty(retrieveC('user'))) { echo ', ';} ?><span style="color: Lime;" style="display: inline;"><?php if(!empty(retrieveC('user'))) {
+        $user = retrieveC('user');
+        include('./php/connect.php');
+        $query = mysqli_query($dbc, "SELECT username FROM users WHERE id='".$user."'");
+        if (!empty($query)) {
+          while($row = mysqli_fetch_array($query)) {
+            $name = $row['username'];
+        }
+        echo $name;
+        mysqli_close($dbc);
+      }} ?></span>!
     </h1>
     <h3 class="main-subheader center">Don't forget to look around for easter eggs!</h3>
     <br />
