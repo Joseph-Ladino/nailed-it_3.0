@@ -3,7 +3,6 @@
   $head2 = '';
   $txt = '';
   $link = '';
-  $logout;
   include('./php/cookie.php');
   if(!empty(retrieveC('user'))) {
     $user = retrieveC('user');
@@ -17,14 +16,14 @@
       $head2 = $name;
       $txt = "Manage Account";
       $link = "account.php";
-      $logout = 1;
+      $_GLOBALS['logout'] = 1;
     }
   } else {
     $head1 = "Welcome to";
     $head2 = "";
     $txt = "Login";
     $link = "login.php";
-    $logout = False;
+    $_GLOBALS['logout'] = False;
   }
   if($_SERVER['REQUEST_METHOD'] == 'POST') {
     if(isset($_POST['suggestor']) && isset($_POST['suggestions'])) {
@@ -32,7 +31,6 @@
       $suggestor = mysqli_real_escape_string($dbc, trim($_POST['suggestor']));
       $suggests = mysqli_real_escape_string($dbc, trim($_POST['suggestions']));
       $time = date("F jS Y");
-      echo $time;
       if(mysqli_num_rows(mysqli_query($dbc, "SHOW TABLES LIKE 'suggestions'")) != 1) {
         mysqli_query($dbc, "CREATE TABLE `suggestions` (`sug-id` INT(11) NOT NULL AUTO_INCREMENT, `person` VARCHAR(50) NOT NULL, `suggestion` LONGTEXT NOT NULL, `time` VARCHAR(25) NOT NULL, PRIMARY KEY(`sug-id`))");
       }
@@ -66,7 +64,7 @@
   </head>
   <body>
     <script type="text/javascript">
-    <?php if($logout == 1) {
+    <?php if($_GLOBALS['logout'] == 1) {
       echo "$('#nav-log').click(function() {
         window.open('./php/account.php?logout=1', '_self');
       });";
@@ -77,7 +75,7 @@
         <li id="nav-home">Home</li>
         <li id="nav-manage"><?php echo $txt; ?></li>
         <li id="nav-changes">Changelog</li>
-        <?php if($logout == 1) {
+        <?php if($_GLOBALS['logout'] == 1) {
           echo "<li id='nav-logout'>Logout</li>";
         } ?>
       </ul>
