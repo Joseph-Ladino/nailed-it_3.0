@@ -72,10 +72,12 @@
         $query = mysqli_query($dbc, "SELECT username FROM users WHERE id='".$user."'");
         if (!empty($query)) {
           while($row = mysqli_fetch_array($query)) {
-            echo $row['username'];
+            $name = $row['username'];
+          }
+          echo $name;
         }
         mysqli_close($dbc);
-      }} ?></span>!
+      } ?></span>!
     </h1>
     <h3 class="main-subheader center">Don't forget to look around for easter eggs!</h3>
     <br />
