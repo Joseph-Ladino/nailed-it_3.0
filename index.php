@@ -31,13 +31,21 @@
       include('./php/connect.php');
       $suggestor = mysqli_real_escape_string($dbc, trim($_POST['suggestor']));
       $suggests = mysqli_real_escape_string($dbc, trim($_POST['suggestions']));
-      if(mysqli_num_rows(mysqli_query($dbc, "SHOW TABLES LIKE 'suggestions'")) == 1) {
-        mysqli_query($dbc, "INSERT INTO suggestions(person, suggestion) VALUES('$suggestor', '$suggests')");
-      } else {
-        mysqli_query($dbc, "CREATE TABLE `suggestions` (`person` VARCHAR(50) NOT NULL, `suggestion` LONGTEXT NOT NULL)");
-        mysqli_query($dbc, "INSERT INTO suggestions(person, suggestion) VALUES('$suggestor', '$suggests')");
+      $time = date("F jS Y");
+      echo $time;
+      if(mysqli_num_rows(mysqli_query($dbc, "SHOW TABLES LIKE 'suggestions'")) != 1) {
+        mysqli_query($dbc, "CREATE TABLE `suggestions` (`sug-id` INT(11) NOT NULL AUTO_INCREMENT, `person` VARCHAR(50) NOT NULL, `suggestion` LONGTEXT NOT NULL, `time` VARCHAR(25) NOT NULL, PRIMARY KEY(`sug-id`))");
       }
+      mysqli_query($dbc, "INSERT INTO suggestions(person, suggestion, time) VALUES('$suggestor', '$suggests', '$time')");
       mysqli_close($dbc);
+    }
+  } elseif($_SERVER['REQUEST_METHOD'] == 'GET') {
+    if(isset($_GET['error'])) {
+      $error = $_GET['error'];
+      if ($error == 'restricted-access') {
+        $error_msg = "This part of the site isn\'t available to you.";
+      }
+      echo "<script type='text/javascript'>alert('".$error_msg."');</script>";
     }
   }
 ?>
@@ -83,7 +91,7 @@
     <br />
     <h3 class="center">Feel free to leave a suggestion!!!</h2><br />
     <form name="suggestion-box;" method="post" action="./index.php" class="center">
-      <input type="text" name="suggestor" placeholder="Enter Name..." maxlength="50" /><br /><br />
+      <input type="text" name="suggestor" placeholder="Enter Name..." /><br /><br />
       <textarea name="suggestions" rows="10" cols="30" placeholder="Enter suggestions here..."></textarea><br />
       <input type="submit" name="Submit" value="Submit suggestion." />
     </form>

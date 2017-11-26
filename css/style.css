@@ -38,6 +38,7 @@ html {
   left: 0rem;
   width: 3rem;
   height: 3rem;
+  margin-left: 0.5rem;
   position: fixed;
   cursor: pointer;
 }

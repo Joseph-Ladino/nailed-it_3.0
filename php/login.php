@@ -5,7 +5,7 @@
   }
   if($_SERVER["REQUEST_METHOD"] == "POST") {
     include('connect.php');
-    $e = mysqli_real_escape_string($dbc, trim($_POST['email'))];
+    $e = mysqli_real_escape_string($dbc, trim($_POST['email']));
     $p = mysqli_real_escape_string($dbc, trim($_POST['password']));
     $q = mysqli_query($dbc, "SELECT * FROM users WHERE email='".$e."'");
     $account_row = mysqli_num_rows($q);

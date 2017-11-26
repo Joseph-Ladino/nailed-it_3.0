@@ -28,6 +28,9 @@ include('./cookie.php');
           }
         }
         $id = randId($dbc);
+        if(mysqli_query($dbc, "SHOW TABLES LIKE 'users'") != 1) {
+          mysqli_query($dbc, "CREATE TABLE `users` (`id` BIGINT(10) NOT NULL, `username` VARCHAR(25) NOT NULL, `email` VARCHAR(50) NOT NULL, `password` VARCHAR(25) NOT NULL, `gender` TEXT NOT NULL)")
+        }
         mysqli_query($dbc, "INSERT INTO users(id, username, email, password, gender) VALUES('$id', '$username', '$email', '$password', '$gender')");
         deleteC('user');
         if($remember == 1) {
