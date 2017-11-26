@@ -24,7 +24,7 @@
 
 <!DOCTYPE html>
 <html>
-  <?php $title = "Manage your Account" include('./header.php'); ?>
+  <?php $title = "Manage your Account"; include('./header.php'); ?>
   <body>
     <label for="changeEmail">Change email address</label><br />
     <form name="changeEmail" method="post" action="./account.php">
