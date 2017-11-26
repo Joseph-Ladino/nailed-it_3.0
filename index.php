@@ -67,7 +67,6 @@
     <br />
     <h1 class="main-header center">
       <?php if(!empty(retrieveC('user'))) { echo "Welcome back to "; } else { echo "Welcome to "; } ?> <span style="color: red;">Nailed</span><span style="color: lime;" style="display: inline;">-</span><span style="color: white;" style="display: inline;">It!</span>
-       </span>!
     </h1>
     <h3 class="main-subheader center">Don't forget to look around for easter eggs!</h3>
     <br />
