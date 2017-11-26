@@ -32,7 +32,6 @@
       $suggestor = mysqli_real_escape_string($dbc, trim($_POST['suggestor']));
       $suggests = mysqli_real_escape_string($dbc, trim($_POST['suggestions']));
       $time = date("F jS Y");
-      echo $time;
       if(mysqli_num_rows(mysqli_query($dbc, "SHOW TABLES LIKE 'suggestions'")) != 1) {
         mysqli_query($dbc, "CREATE TABLE `suggestions` (`sug-id` INT(11) NOT NULL AUTO_INCREMENT, `person` VARCHAR(50) NOT NULL, `suggestion` LONGTEXT NOT NULL, `time` VARCHAR(25) NOT NULL, PRIMARY KEY(`sug-id`))");
       }
@@ -50,6 +49,7 @@
   }
 ?>
 
+<!DOCTYPE html>
 <html>
   <head>
     <title>New and Improved Nailed-It!</title>
@@ -64,13 +64,13 @@
     <script type="text/javascript" src="./js/main.js" id="nav-closed"></script>
   </head>
   <body>
-    <?php echo "this works toooo"; ?>
-    
-    <?php $logout = 1; if($logout == 1) {
-      echo "<script type='text/javascript'>$('#nav-log').click(function() {
+    <script type="text/javascript">
+    <?php if($logout == 1) {
+      echo "$('#nav-log').click(function() {
         window.open('./php/account.php?logout=1', '_self');
-      });</script>";
-    } echo "testtss" ?>
+      });";
+    } ?>
+    </script>
     <div id="nav-bar">
       <ul>
         <li id="nav-home">Home</li>
