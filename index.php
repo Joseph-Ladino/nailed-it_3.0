@@ -73,8 +73,8 @@
         if (!empty($query)) {
           while($row = mysqli_fetch_array($query)) {
             $name = $row['username'];
+            echo $name;
         }
-        echo $name;
         mysqli_close($dbc);
       }} ?></span>!
     </h1>
