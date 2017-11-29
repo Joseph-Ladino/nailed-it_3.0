@@ -1,8 +1,4 @@
 <?php
-  $head1 = '';
-  $head2 = '';
-  $txt = '';
-  $link = '';
   include('./php/cookie.php');
   if($_SERVER['REQUEST_METHOD'] == 'POST') {
     if(isset($_POST['suggestor']) && isset($_POST['suggestions'])) {
@@ -21,8 +17,14 @@
       $error = $_GET['error'];
       if ($error == 'restricted-access') {
         $error_msg = "This part of the site isn\'t available to you.";
+        echo "<script type='text/javascript'>alert('".$error_msg."');</script>";
       }
-      echo "<script type='text/javascript'>alert('".$error_msg."');</script>";
+    }
+    if(isset($_GET['logout'])) {
+      $l = $_GET['logout'];
+      if($l == 1) {
+        deleteC('user');
+      }
     }
   }
 ?>
@@ -37,7 +39,7 @@
     <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript">
-    var links = ['./', './php/<?php echo $link; ?>', 'https://github.com/Joseph-Ladino/nailed-it_3.0/commit/master'];
+    var links = ['./', './php/<?php if(!empty(retrieveC('user'))) { echo "account.php"; } else { echo "login.php"; } ?>', 'https://github.com/Joseph-Ladino/nailed-it_3.0/commit/master', './?logout=1'];
     </script>
     <script type="text/javascript" src="./js/main.js" id="nav-closed"></script>
   </head>
@@ -72,7 +74,17 @@
     <br />
     <h3 class="center">Feel free to leave a suggestion!!!</h2><br />
     <form name="suggestion-box;" method="post" action="./index.php" class="center">
-      <input type="text" name="suggestor" placeholder="Enter Name..." /><br /><br />
+      <input type="text" name="suggestor" placeholder="Enter Name..."
+      <?php
+      include('./php/connect.php');
+      if(!empty(retrieveC('user'))) {
+        $id = retrieveC('user');
+        $name_q = mysqli_query($dbc, "SELECT username FROM users WHERE id='".$id."'");
+        while($row = mysqli_fetch_array($name_q)) {
+          echo "value='".$row['username']."'";
+        }
+      }
+      ?> /><br /><br />
       <textarea name="suggestions" rows="10" cols="30" placeholder="Enter suggestions here..."></textarea><br />
       <input type="submit" name="Submit" value="Submit suggestion." />
     </form>

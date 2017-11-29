@@ -15,16 +15,16 @@ function main() {
   $('#nav-bar ul li').click(function(){
     var id = $(this).attr('id');
     var open = '';
-    var target = '';
+    var target = '_self';
     if(id == 'nav-home') {
       open = links[0];
-      target = '_self';
     } else if(id == 'nav-manage') {
       open = links[1];
-      target = '_self';
     } else if(id == 'nav-changes') {
       open = links[2];
       target = '_blank';
+    } else if(id == 'nav-logout') {
+      open = links[3];
     }
     window.open(open, target);
   });

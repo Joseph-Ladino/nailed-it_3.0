@@ -9,6 +9,8 @@
 
   function deleteC($name) {
     if(isset($_COOKIE[$name])) {
+      setcookie($name, 0, time() - 1, "/");
+      unset($_COOKIE[$name]);
       unset($_COOKIE[$name]);
     } else {
       return '';
