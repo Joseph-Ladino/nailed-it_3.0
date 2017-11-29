@@ -21,7 +21,7 @@ include('./cookie.php');
           }
           error_reporting(-1);
           $q = mysqli_query($dbc, "SELECT * FROM users WHERE id='".$id."'");
-          if(mysqli_num_rows($q) >= 1) {
+          if(mysqli_num_rows($q) >= 1 || $id < 1) {
             $id = randId();
           } else {
             return $id;

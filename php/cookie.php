@@ -12,18 +12,14 @@
       setcookie($name, 0, time() - 1, "/");
       unset($_COOKIE[$name]);
       unset($_COOKIE[$name]);
-    } else {
-      return '';
     }
   }
 
   function retrieveC($name) {
     if(isset($_COOKIE[$name])) {
       include("connect.php");
-      return mysqli_real_escape_string($dbc, trim($_COOKIE[$name]));
+      return $_COOKIE[$name];
       mysqli_close($dbc);
-    } else {
-      return '';
     }
   }
 ?>
